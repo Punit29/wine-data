@@ -1,6 +1,6 @@
 export function calculateStats(data, type) {
   // Create an object to store types values for each alcohol class
-  const alcoholClassFlavanoids = {};
+  const alcoholClassTypes = {};
 
   // Iterate through the data array
   data.forEach((entry) => {
@@ -8,44 +8,43 @@ export function calculateStats(data, type) {
     const types = parseFloat(entry[type]);
 
     // If the alcohol class is not already in the object, initialize it
-    if (!alcoholClassFlavanoids[alcoholClass]) {
-      alcoholClassFlavanoids[alcoholClass] = [];
+    if (!alcoholClassTypes[alcoholClass]) {
+      alcoholClassTypes[alcoholClass] = [];
     }
 
     // Add types value to the array for this alcohol class
-    alcoholClassFlavanoids[alcoholClass].push(types);
+    alcoholClassTypes[alcoholClass].push(types);
   });
 
   // Calculate mean, median, and mode for types for each alcohol class
   const statsByAlcoholClass = {};
-  Object.keys(alcoholClassFlavanoids).forEach((alcoholClass) => {
-    const flavanoidsArray = alcoholClassFlavanoids[alcoholClass];
+  Object.keys(alcoholClassTypes).forEach((alcoholClass) => {
+    const typesArray = alcoholClassTypes[alcoholClass];
 
     // Mean calculation
     const mean =
-      flavanoidsArray.reduce((sum, val) => sum + val, 0) /
-      flavanoidsArray.length;
+      typesArray.reduce((sum, val) => sum + val, 0) / typesArray.length;
 
     // Median calculation
-    const sortedFlavanoids = flavanoidsArray.slice().sort((a, b) => a - b);
+    const sortedTypes = typesArray.slice().sort((a, b) => a - b);
     const median =
-      sortedFlavanoids.length % 2 === 0
-        ? (sortedFlavanoids[sortedFlavanoids.length / 2 - 1] +
-            sortedFlavanoids[sortedFlavanoids.length / 2]) /
+      sortedTypes.length % 2 === 0
+        ? (sortedTypes[sortedTypes.length / 2 - 1] +
+            sortedTypes[sortedTypes.length / 2]) /
           2
-        : sortedFlavanoids[Math.floor(sortedFlavanoids.length / 2)];
+        : sortedTypes[Math.floor(sortedTypes.length / 2)];
 
     // Mode calculation
-    const flavanoidsCount = {};
-    flavanoidsArray.forEach((val) => {
-      flavanoidsCount[val] = (flavanoidsCount[val] || 0) + 1;
+    const typesCount = {};
+    typesArray.forEach((val) => {
+      typesCount[val] = (typesCount[val] || 0) + 1;
     });
     let mode = null;
     let maxCount = 0;
-    Object.keys(flavanoidsCount).forEach((key) => {
-      if (flavanoidsCount[key] > maxCount) {
+    Object.keys(typesCount).forEach((key) => {
+      if (typesCount[key] > maxCount) {
         mode = parseFloat(key);
-        maxCount = flavanoidsCount[key];
+        maxCount = typesCount[key];
       }
     });
 

@@ -3,9 +3,9 @@ import React from "react";
 const Table = ({ data }) => {
   const classes = Object.keys(data);
 
-  const meanValues = classes.map((cls) => data[cls].mean.toFixed(2));
-  const medianValues = classes.map((cls) => data[cls].median.toFixed(2));
-  const modeValues = classes.map((cls) => data[cls].mode.toFixed(2));
+  const meanValues = classes.map((cls) => data[cls].mean.toFixed(3));
+  const medianValues = classes.map((cls) => data[cls].median.toFixed(3));
+  const modeValues = classes.map((cls) => data[cls].mode.toFixed(3));
 
   return (
     <table>
